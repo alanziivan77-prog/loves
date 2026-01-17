@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Я люблю тебя ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff003c, #ff6f91);
+    overflow-x: hidden;
+    color: white;
+    text-align: center;
+}
+
+/* Падающие сердечки */
+.heart {
+    position: fixed;
+    top: -10%;
+    animation: fall linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+
+h1 {
+    margin-top: 40px;
+    font-size: 48px;
+    animation: fadeIn 2s ease;
+    text-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.photos {
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.photos img {
+    width: 260px;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    animation: zoomIn 1.5s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Печатающийся текст */
+.typewriter {
+    max-width: 900px;
+    margin: 50px auto;
+    font-size: 22px;
+    line-height: 1.7;
+    background: rgba(255,255,255,0.15);
+    padding: 35px;
+    border-radius: 25px;
+    backdrop-filter: blur(8px);
+}
+
+/* Кнопка сюрприза */
+.surprise-btn {
+    margin: 30px auto;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: #ff003c;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.surprise-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Всплывающее признание */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-content {
+    background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+    padding: 40px;
+    border-radius: 30px;
+    font-size: 26px;
+    max-width: 400px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+footer {
+    margin: 30px 0 40px;
+    font-size: 22px;
+}
+
+/* Кнопка музыки */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 26px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* Мобилка */
+@media (max-width: 600px) {
+    h1 { font-size: 34px; }
+    .typewriter { font-size: 18px; }
+    .photos img { width: 90%; height: auto; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Для самой любимой ❤️</h1>
+
+<div class="photos">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+</div>
+
+<div class="typewriter" id="text"></div>
+
+<button class="surprise-btn" onclick="showPopup()">Нажми… 💖</button>
+
+<footer>Навсегда твой 💕</footer>
+
+<div class="popup" id="popup" onclick="closePopup()">
+    <div class="popup-content">
+        ❤️ Я люблю тебя очень сильно,прости меня за все солнышко ❤️
+    </div>
+</div>
+
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<script>
+/* Сердечки */
+for (let i = 0; i < 45; i++) {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.fontSize = (18 + Math.random() * 20) + "px";
+    h.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(h);
+}
+
+/* Печатающийся текст */
+const message = `С каждым мгновением я понимаю,
+что ты — моё самое главное счастье.
+Твоя улыбка — мой свет,
+твой голос — мой покой.
+Я люблю тебя всем сердцем ❤️`;
+
+let i = 0;
+function typeText() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeText, 45);
+    }
+}
+typeText();
+
+/* Музыка */
+let playing = false;
+const music = document.getElementById("music");
+function toggleMusic() {
+    playing ? music.pause() : music.play();
+    playing = !playing;
+}
+
+/* Сюрприз */
+function showPopup() {
+    document.getElementById("popup").style.display = "flex";
+}
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
